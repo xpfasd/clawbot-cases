@@ -1,0 +1,29 @@
+{
+  "name": "telegram-bot",
+  "description": "Telegram 机器人配置模板",
+  "version": "1.0.0",
+  "channel": "telegram",
+  "config": {
+    "enabled": true,
+    "botToken": "YOUR_BOT_TOKEN_HERE",
+    "dmPolicy": "pairing",
+    "groupPolicy": "allowlist",
+    "streamMode": "partial"
+  },
+  "features": [
+    "私聊对话",
+    "群组 @机器人",
+    "消息回复",
+    "媒体文件支持"
+  ],
+  "setupSteps": [
+    "1. @BotFather 创建机器人",
+    "2. 获取 Bot Token",
+    "3. 配置到 OpenClaw",
+    "4. 重启 Gateway"
+  ],
+  "notes": [
+    "Token 要保密",
+    "群组需要先加入白名单"
+  ]
+}

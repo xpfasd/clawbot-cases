@@ -1,0 +1,48 @@
+# AWS S3 配置模板
+
+```json
+{
+  "name": "aws-s3",
+  "description": "AWS S3 存储配置模板",
+  "version": "1.0.0",
+  "service": "aws-s3",
+  "config": {
+    "region": "us-east-1",
+    "bucket": "my-bucket",
+    "acl": "private",
+    "cors": {
+      "AllowedHeaders": ["*"],
+      "AllowedMethods": ["GET", "PUT", "POST"],
+      "AllowedOrigins": ["https://example.com"],
+      "MaxAgeSeconds": 3000
+    },
+    "lifecycle": {
+      "rules": [
+        {
+          "id": "ArchiveOldObjects",
+          "status": "Enabled",
+          "prefix": "logs/",
+          "transitions": [
+            {"days": 30, "storageClass": "STANDARD_IA"},
+            {"days": 90, "storageClass": "GLACIER"}
+          ]
+        }
+      ]
+    }
+  },
+  "cliCommands": {
+    "list": "aws s3 ls",
+    "upload": "aws s3 cp file.txt s3://bucket/",
+    "download": "aws s3 cp s3://bucket/file.txt ./",
+    "sync": "aws s3 sync dir/ s3://bucket/"
+  },
+  "envVars": {
+    "AWS_ACCESS_KEY_ID": "Access Key",
+    "AWS_SECRET_ACCESS_KEY": "Secret Key",
+    "AWS_DEFAULT_REGION": "Region"
+  }
+}
+```
+
+## 文件位置
+`templates/cloud/aws/s3-config.json`

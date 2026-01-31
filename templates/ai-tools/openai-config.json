@@ -1,0 +1,75 @@
+# OpenAI API 配置模板
+
+```json
+{
+  "name": "openai",
+  "description": "OpenAI API 配置模板",
+  "version": "1.0.0",
+  "api": "openai",
+  "config": {
+    "apiKey": "${OPENAI_API_KEY}",
+    "apiUrl": "https://api.openai.com/v1",
+    "models": {
+      "gpt-4": "gpt-4",
+      "gpt-4-turbo": "gpt-4-turbo-preview",
+      "gpt-3.5-turbo": "gpt-3.5-turbo",
+      "dall-e-3": "dall-e-3",
+      "dall-e-2": "dall-e-2",
+      "whisper": "whisper-1",
+      "tts-1": "tts-1",
+      "tts-1-hd": "tts-1-hd",
+      "embeddings-3": "text-embedding-3-small",
+      "embeddings-3-large": "text-embedding-3-large"
+    },
+    "defaultModel": "gpt-4"
+  },
+  "features": [
+    "文本生成",
+    "图像生成",
+    "语音识别",
+    "语音合成",
+    "嵌入向量"
+  ],
+  "pricing": {
+    "gpt-4": {
+      "input": 30,
+      "output": 60
+    },
+    "gpt-4-turbo": {
+      "input": 10,
+      "output": 30
+    },
+    "gpt-3.5-turbo": {
+      "input": 0.5,
+      "output": 1.5
+    },
+    "dall-e-3": {
+      "standard": 40,
+      "hd": 80
+    },
+    "whisper": {
+      "per_minute": 0.006
+    }
+  },
+  "setup": {
+    "getApiKey": "https://platform.openai.com/api-keys",
+    "docs": "https://platform.openai.com/docs/"
+  }
+}
+```
+
+## 使用示例
+
+```bash
+# GPT-4 调用
+curl -X POST https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+    "model": "gpt-4",
+    "messages": [{"role": "user", "content": "你好"}]
+  }'
+```
+
+## 文件位置
+`templates/ai-tools/openai-config.json`

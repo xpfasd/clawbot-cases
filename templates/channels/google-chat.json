@@ -1,0 +1,69 @@
+# Google Chat 配置模板
+
+## 基础配置
+
+```json
+{
+  "name": "google-chat",
+  "description": "Google Chat 配置模板",
+  "version": "1.0.0",
+  "channel": "googlechat",
+  "config": {
+    "enabled": true,
+    "webhookUrl": "https://chat.googleapis.com/v1/spaces/xxx/messages?key=xxx",
+    "botName": "ClawBot"
+  },
+  "features": [
+    "Webhook 发送",
+    "群组消息",
+    "卡片消息"
+  ],
+  "setupSteps": [
+    "1. 访问 Google Cloud Console",
+    "2. 创建 Google Chat API 项目",
+    "3. 配置身份验证",
+    "4. 创建 Webhook",
+    "5. 复制 Webhook URL",
+    "6. 配置到 OpenClaw"
+  ]
+}
+```
+
+## 发送消息
+
+### 文本消息
+
+```json
+{
+  "text": "Hello from ClawBot!"
+}
+```
+
+### 卡片消息
+
+```json
+{
+  "cards": [
+    {
+      "header": {
+        "title": "项目更新",
+        "subtitle": "ClawBot 通知"
+      },
+      "sections": [
+        {
+          "widgets": [
+            {
+              "textParagraph": {
+                "text": "✅ 任务已完成"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## 文件位置
+`templates/channels/google-chat.json`

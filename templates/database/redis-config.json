@@ -1,0 +1,85 @@
+# Redis 配置模板
+
+## 连接配置
+
+```json
+{
+  "name": "redis",
+  "description": "Redis 配置模板",
+  "version": "1.0.0",
+  "database": "redis",
+  "config": {
+    "host": "localhost",
+    "port": 6379,
+    "password": "${REDIS_PASSWORD}",
+    "db": 0,
+    "keyPrefix": "myapp:",
+    "tls": false
+  },
+  "connectionString": "redis://:password@host:6379/0",
+  "cliTools": ["redis-cli"],
+  "setup": {
+    "install": "brew install redis",
+    "start": "brew services start redis",
+    "connect": "redis-cli"
+  },
+  "envVars": {
+    "REDIS_HOST": "localhost",
+    "REDIS_PORT": "6379",
+    "REDIS_PASSWORD": ""
+  },
+  "features": [
+    "键值存储",
+    "发布/订阅",
+    "Lua 脚本",
+    "事务",
+    "过期机制"
+  ]
+}
+```
+
+## 连接示例
+
+```bash
+# 连接 Redis
+redis-cli
+
+# 带密码连接
+redis-cli -a your_password
+
+# 连接指定数据库
+redis-cli -n 1
+```
+
+## 常用命令
+
+```bash
+# 基本操作
+SET key value
+GET key
+DEL key
+
+# 哈希
+HSET user name "张三"
+HGETALL user
+
+# 列表
+LPUSH queue task1
+RPOP queue
+
+# 发布/订阅
+PUBLISH channel message
+SUBSCRIBE channel
+
+# 监控
+MONITOR
+
+# 查看所有键
+KEYS *
+
+# 查看服务器信息
+INFO
+```
+
+## 文件位置
+`templates/database/redis-config.json`

@@ -1,0 +1,48 @@
+# Matrix 配置模板
+
+```json
+{
+  "name": "matrix",
+  "description": "Matrix 协议配置模板",
+  "version": "1.0.0",
+  "channel": "matrix",
+  "config": {
+    "enabled": true,
+    "homeserver": "https://matrix.org",
+    "user": "@bot:matrix.org",
+    "password": "${MATRIX_PASSWORD}",
+    "access_token": "${MATRIX_ACCESS_TOKEN}",
+    "device_id": "CLAWBOT001",
+    "room_alias": "#clawbot:matrix.org"
+  },
+  "features": [
+    "私聊消息",
+    "群聊消息",
+    "富文本支持",
+    "文件传输"
+  ],
+  "setupSteps": [
+    "1. 注册 Matrix 用户或创建应用服务",
+    "2. 安装 matrix-commander: pip install matrix-commander",
+    "3. 配置环境变量",
+    "4. 测试连接"
+  ],
+  "envVars": {
+    "MATRIX_HOMESERVER": "Matrix 服务器地址",
+    "MATRIX_USER": "用户 ID",
+    "MATRIX_PASSWORD": "密码或 access_token"
+  }
+}
+```
+
+## 使用示例
+
+```python
+import matrix_commander
+
+bot = matrix_commander.MatrixCommander()
+bot.send("Hello from ClawBot!")
+```
+
+## 文件位置
+`templates/messaging/matrix.json`

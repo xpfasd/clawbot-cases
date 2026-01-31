@@ -1,0 +1,175 @@
+# 自动化工作流模板
+
+## 定时提醒工作流
+
+```json
+{
+  "name": "daily-reminder",
+  "description": "每日定时提醒工作流",
+  "version": "1.0.0",
+  "type": "automation",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 9 * * *",
+    "tz": "Asia/Shanghai"
+  },
+  "steps": [
+    {
+      "name": "check-weather",
+      "skill": "weather",
+      "action": "get_forecast",
+      "params": {
+        "city": "北京",
+        "days": 1
+      }
+    },
+    {
+      "name": "send-reminder",
+      "type": "message",
+      "action": "send",
+      "params": {
+        "message": "早上好！今日提醒：{weather}"
+      }
+    }
+  ]
+}
+```
+
+## 每周总结工作流
+
+```json
+{
+  "name": "weekly-summary",
+  "description": "每周项目总结工作流",
+  "version": "1.0.0",
+  "type": "automation",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 18 * * 5",
+    "tz": "Asia/Shanghai"
+  },
+  "steps": [
+    {
+      "name": "gather-github-activity",
+      "skill": "github",
+      "action": "activity",
+      "params": {
+        "limit": 20
+      }
+    },
+    {
+      "name": "format-summary",
+      "type": "processor",
+      "action": "format",
+      "params": {
+        "template": "## 本周总结\n\n{activity}\n\n## 下周计划\n- [ ] "
+      }
+    },
+    {
+      "name": "send-summary",
+      "type": "message",
+      "action": "send",
+      "params": {
+        "message": "{summary}"
+      }
+    }
+  ]
+}
+```
+
+## 数据备份工作流
+
+```json
+{
+  "name": "data-backup",
+  "description": "自动备份数据工作流",
+  "version": "1.0.0",
+  "type": "automation",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 3 * * 0",
+    "tz": "Asia/Shanghai"
+  },
+  "steps": [
+    {
+      "name": "create-backup",
+      "type": "exec",
+      "action": "run",
+      "params": {
+        "command": "tar -czf /backup/clawbot-backup-$(date +%Y%m%d).tar.gz ~/.openclaw/",
+        "timeout": 300
+      }
+    },
+    {
+      "name": "upload-cloud",
+      "type": "exec",
+      "action": "run",
+      "params": {
+        "command": "rclone copy /backup/clawbot-backup-*.tar.gz remote:backup/"
+      }
+    },
+    {
+      "name": "cleanup-old",
+      "type": "exec",
+      "action": "run",
+      "params": {
+        "command": "find /backup -name \"*.tar.gz\" -mtime +30 -delete"
+      }
+    },
+    {
+      "name": "notify",
+      "type": "message",
+      "action": "send",
+      "params": {
+        "message": "✅ 数据备份完成！"
+      }
+    }
+  ]
+}
+```
+
+## 消息聚合工作流
+
+```json
+{
+  "name": "message-digest",
+  "description": "每日消息摘要工作流",
+  "version": "1.0.0",
+  "type": "automation",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 20 * * *",
+    "tz": "Asia/Shanghai"
+  },
+  "steps": [
+    {
+      "name": "fetch-messages",
+      "type": "memory",
+      "action": "search",
+      "params": {
+        "query": "今天",
+        "limit": 50
+      }
+    },
+    {
+      "name": "generate-digest",
+      "type": "processor",
+      "action": "summarize",
+      "params": {
+        "maxLength": 500
+      }
+    },
+    {
+      "name": "send-digest",
+      "type": "message",
+      "action": "send",
+      "params": {
+        "message": "📋 今日消息摘要：\n\n{digest}"
+      }
+    }
+  ]
+}
+```
+
+## 文件位置
+`templates/workflows/automation-templates.json`

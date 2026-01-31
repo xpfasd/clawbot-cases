@@ -1,0 +1,83 @@
+# 飞书配置模板
+
+## 基础配置
+
+```json
+{
+  "name": "feishu",
+  "description": "飞书（Feishu/Lark）配置模板",
+  "version": "1.0.0",
+  "channel": "feishu",
+  "config": {
+    "enabled": true,
+    "appId": "cli_xxxxxxxxxx",
+    "appSecret": "your_app_secret",
+    "domain": "feishu",
+    "connectionMode": "websocket",
+    "dmPolicy": "pairing",
+    "groupPolicy": "allowlist",
+    "requireMention": true,
+    "mediaMaxMb": 30,
+    "renderMode": "auto"
+  },
+  "features": [
+    "私聊对话",
+    "群聊 @机器人",
+    "消息卡片",
+    "文件传输"
+  ],
+  "requiredPermissions": [
+    "contact:user.base:readonly",
+    "im:message",
+    "im:message.p2p_msg:readonly",
+    "im:message.group_at_msg:readonly",
+    "im:message:send_as_bot",
+    "im:resource"
+  ],
+  "requiredEvents": [
+    "im.message.receive_v1",
+    "im.message.message_read_v1",
+    "im.chat.member.bot.added_v1",
+    "im.chat.member.bot.deleted_v1"
+  ],
+  "setupSteps": [
+    "1. 访问 https://open.feishu.cn",
+    "2. 创建自建应用",
+    "3. 获取 App ID 和 App Secret",
+    "4. 配置权限（必需 + 可选）",
+    "5. 配置事件订阅（长连接）",
+    "6. 发布应用到测试版本",
+    "7. 配置到 OpenClaw"
+  ]
+}
+```
+
+## 高级配置
+
+```json
+{
+  "config": {
+    "enabled": true,
+    "appId": "cli_xxxxx",
+    "appSecret": "secret",
+    "domain": "feishu",
+    "connectionMode": "websocket",
+    "dmPolicy": "pairing",
+    "groupPolicy": "allowlist",
+    "requireMention": true,
+    "mediaMaxMb": 30,
+    "renderMode": "auto"
+  }
+}
+```
+
+## 渲染模式
+
+| 模式 | 说明 |
+|------|------|
+| `auto` | 自动检测（默认） |
+| `raw` | 纯文本 |
+| `card` | 卡片（支持 Markdown） |
+
+## 文件位置
+`templates/channels/feishu.json`

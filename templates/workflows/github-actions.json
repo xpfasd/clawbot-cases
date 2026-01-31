@@ -1,0 +1,133 @@
+# GitHub Actions 模板
+
+## 创建 Issue 模板
+
+```json
+{
+  "name": "create-issue",
+  "description": "创建 GitHub Issue 模板",
+  "version": "1.0.0",
+  "workflow": "github-issue",
+  "template": {
+    "title": "",
+    "body": "",
+    "labels": [],
+    "assignees": []
+  },
+  "examples": [
+    {
+      "title": "Bug: 登录失败",
+      "body": "## 问题描述\n登录时提示错误\n\n## 重现步骤\n1. 打开应用\n2. 点击登录\n3. 输入账号密码\n\n## 预期行为\n正常登录",
+      "labels": ["bug"],
+      "assignees": ["@username"]
+    },
+    {
+      "title": "Feature: 添加天气功能",
+      "body": "## 功能描述\n添加实时天气查询功能\n\n## 需求说明\n- 查询当前天气\n- 查询未来预报\n- 支持多城市",
+      "labels": ["feature"],
+      "assignees": []
+    }
+  ],
+  "usage": {
+    "command": "gh issue create",
+    "params": {
+      "--title": "标题",
+      "--body": "内容",
+      "--label": "标签",
+      "--assignee": "指派人"
+    }
+  }
+}
+```
+
+## Pull Request 模板
+
+```json
+{
+  "name": "create-pr",
+  "description": "创建 Pull Request 模板",
+  "version": "1.0.0",
+  "workflow": "github-pr",
+  "template": {
+    "title": "",
+    "body": "",
+    "base": "main",
+    "head": ""
+  },
+  "prBody": {
+    "sections": [
+      "## 改动内容",
+      "## 测试说明",
+      "## 相关 Issue",
+      "## 截图（如果有 UI 改动）"
+    ],
+    "checklist": [
+      "[ ] 代码已测试",
+      "[ ] 文档已更新",
+      "[ ] Lint 通过"
+    ]
+  }
+}
+```
+
+## Issue 处理工作流
+
+```json
+{
+  "name": "issue-workflow",
+  "description": "GitHub Issue 完整处理工作流",
+  "version": "1.0.0",
+  "steps": [
+    {
+      "name": "List Issues",
+      "command": "gh issue list --state open --limit 10",
+      "output": "issueList"
+    },
+    {
+      "name": "View Issue",
+      "command": "gh issue view {issueNumber}",
+      "output": "issueDetail"
+    },
+    {
+      "name": "Add Comment",
+      "command": "gh issue comment {issueNumber} --body \"正在处理...\"",
+      "output": "commentResult"
+    },
+    {
+      "name": "Close Issue",
+      "command": "gh issue close {issueNumber}",
+      "output": "closeResult"
+    }
+  ]
+}
+```
+
+## GitHub CLI 速查
+
+```bash
+# Issues
+gh issue list                    # 列出 Issues
+gh issue view 1                  # 查看 Issue
+gh issue create --title "标题"   # 创建 Issue
+gh issue close 1                 # 关闭 Issue
+gh issue reopen 1                # 重新打开
+
+# Pull Requests
+gh pr list                       # 列出 PRs
+gh pr view 1                     # 查看 PR
+gh pr create --title "标题"      # 创建 PR
+gh pr merge 1                    # 合并 PR
+gh pr checkout 1                 # 检出 PR
+
+# Actions
+gh run list                      # 列出运行
+gh run view 1                    # 查看运行
+gh run watch 1                   # 监控运行
+
+# 查看状态
+gh repo view                     # 查看仓库
+gh status                        # 查看状态
+```
+
+## 文件位置
+`templates/workflows/github-actions.json`

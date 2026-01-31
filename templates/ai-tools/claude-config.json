@@ -1,0 +1,72 @@
+# Claude API 配置模板
+
+```json
+{
+  "name": "claude",
+  "description": "Anthropic Claude API 配置模板",
+  "version": "1.0.0",
+  "api": "anthropic",
+  "config": {
+    "apiKey": "${ANTHROPIC_API_KEY}",
+    "apiUrl": "https://api.anthropic.com/v1",
+    "models": {
+      "opus": "claude-3-opus-20240229",
+      "sonnet": "claude-3-sonnet-20240229",
+      "haiku": "claude-3-haiku-20240307",
+      "sonnet-3-5": "claude-3-5-sonnet-20241022"
+    },
+    "defaultModel": "claude-3-5-sonnet-20241022",
+    "settings": {
+      "maxTokens": 1024,
+      "temperature": 0.7,
+      "topP": 0.9
+    }
+  },
+  "features": [
+    "长上下文支持",
+    "系统提示词",
+    "函数调用",
+    "流式响应"
+  ],
+  "pricing": {
+    "claude-3-opus": {
+      "input": 15,
+      "output": 75
+    },
+    "claude-3-sonnet": {
+      "input": 3,
+      "output": 15
+    },
+    "claude-3-haiku": {
+      "input": 0.25,
+      "output": 1.25
+    },
+    "claude-3-5-sonnet": {
+      "input": 3,
+      "output": 15
+    }
+  },
+  "setup": {
+    "getApiKey": "https://console.anthropic.com/",
+    "docs": "https://docs.anthropic.com/"
+  }
+}
+```
+
+## 使用示例
+
+```bash
+# 调用 Claude
+curl -X POST https://api.anthropic.com/v1/messages \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "claude-3-5-sonnet-20241022",
+    "max_tokens": 1024,
+    "messages": [{"role": "user", "content": "你好"}]
+  }'
+```
+
+## 文件位置
+`templates/ai-tools/claude-config.json`

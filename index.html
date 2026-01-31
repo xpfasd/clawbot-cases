@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClawBot 案例库</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        header {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        h1 { font-size: 3em; margin-bottom: 20px; }
+        .subtitle { font-size: 1.2em; opacity: 0.8; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card h2 { margin-bottom: 15px; font-size: 1.5em; }
+        .card p { opacity: 0.8; margin-bottom: 20px; }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #e94560;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .btn:hover { background: #ff6b6b; }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 40px 0;
+        }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2.5em; font-weight: bold; }
+        .stat-label { opacity: 0.7; }
+        footer {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🦞 ClawBot 案例库</h1>
+        <p class="subtitle">ClawBot 技能案例 + 模板市场</p>
+    </header>
+
+    <div class="container">
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="case-count">0</div>
+                <div class="stat-label">个案例</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="template-count">0</div>
+                <div class="stat-label">个模板</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="skill-count">6</div>
+                <div class="stat-label">个技能</div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>📚 案例库</h2>
+                <p>探索 ClawBot 各种使用场景和技能示例</p>
+                <a href="cases/" class="btn">浏览案例 →</a>
+            </div>
+            <div class="card">
+                <h2>📦 模板市场</h2>
+                <p>下载预配置的技能和通道模板</p>
+                <a href="templates/" class="btn">获取模板 →</a>
+            </div>
+            <div class="card">
+                <h2">🛠️ 开发工具</h2>
+                <p>使用 coding-agent 和 skill-creator 创建新内容</p>
+                <a href="docs/" class="btn">查看文档 →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Built with ClawDBot 🦞</p>
+    </footer>
+
+    <script>
+        // 简单的计数器动画
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.textContent = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // 模拟数据加载
+        setTimeout(() => {
+            animateValue(document.getElementById('case-count'), 0, 12, 1000);
+            animateValue(document.getElementById('template-count'), 0, 8, 1000);
+        }, 500);
+    </script>
+</body>
+</html>

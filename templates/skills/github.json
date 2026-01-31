@@ -1,0 +1,81 @@
+# GitHub 技能模板
+
+## 技能配置
+
+```json
+{
+  "name": "github",
+  "description": "GitHub 操作技能模板",
+  "version": "1.0.0",
+  "skill": {
+    "name": "github",
+    "description": "Interact with GitHub using gh CLI",
+    "source": "openclaw-bundled",
+    "features": [
+      "Issue 管理",
+      "Pull Request 操作",
+      "CI/CD 监控",
+      "仓库操作"
+    ],
+    "ghCommands": {
+      "issue": {
+        "list": "gh issue list [flags]",
+        "view": "gh issue view <number> [flags]",
+        "create": "gh issue create [flags]",
+        "close": "gh issue close <number>",
+        "reopen": "gh issue reopen <number>"
+      },
+      "pr": {
+        "list": "gh pr list [flags]",
+        "view": "gh pr view <number> [flags]",
+        "create": "gh pr create [flags]",
+        "merge": "gh pr merge <number>",
+        "checkout": "gh pr checkout <number>"
+      },
+      "run": {
+        "list": "gh run list [flags]",
+        "view": "gh run view <run-id> [flags]",
+        "watch": "gh run watch <run-id> [flags]",
+        "rerun": "gh run rerun <run-id>"
+      },
+      "repo": {
+        "view": "gh repo view [owner/repo]",
+        "clone": "gh repo clone <repo>",
+        "fork": "gh repo fork <repo>"
+      }
+    },
+    "usage": {
+      "examples": [
+        "列出所有 open 的 issues",
+        "创建新 issue",
+        "查看最近的 PR",
+        "监控 CI/CD 运行"
+      ]
+    }
+  },
+  "setup": {
+    "required": ["gh CLI"],
+    "optional": ["GitHub OAuth token"]
+  },
+  "authentication": {
+    "method": "gh auth login",
+    "scopes": ["repo", "read:org"]
+  }
+}
+```
+
+## 快速使用
+
+```bash
+# 验证 gh CLI
+gh --version
+
+# 登录 GitHub
+gh auth login
+
+# 设置默认仓库
+gh repo set-default owner/repo
+```
+
+## 文件位置
+`templates/skills/github.json`

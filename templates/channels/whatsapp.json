@@ -1,0 +1,69 @@
+# WhatsApp 配置模板
+
+## 基础配置
+
+```json
+{
+  "name": "whatsapp",
+  "description": "WhatsApp 配置模板",
+  "version": "1.0.0",
+  "channel": "whatsapp",
+  "config": {
+    "enabled": true,
+    "dmPolicy": "pairing",
+    "groupPolicy": "allowlist",
+    "allowFrom": []
+  },
+  "features": [
+    "QR 码登录",
+    "私聊对话",
+    "群组消息",
+    "媒体文件支持"
+  ],
+  "setupSteps": [
+    "1. 运行: openclaw channels login",
+    "2. 打开 WhatsApp → 设置 → 关联设备",
+    "3. 扫描屏幕上的 QR 码",
+    "4. 等待连接成功",
+    "5. 重启 Gateway"
+  ],
+  "notes": [
+    "需要保持登录状态",
+    "不支持多设备同时登录",
+    "首次登录需要扫描 QR 码"
+  ]
+}
+```
+
+## 高级配置
+
+```json
+{
+  "config": {
+    "enabled": true,
+    "dmPolicy": "pairing",
+    "groupPolicy": "allowlist",
+    "allowFrom": ["+8613800138000"],
+    "groups": {
+      "*": {
+        "requireMention": true
+      }
+    },
+    "message": {
+      "maxMediaSizeMb": 30,
+      "typingIndicator": true
+    }
+  }
+}
+```
+
+## 常见问题
+
+| 问题 | 解决方案 |
+|------|----------|
+| QR 码不显示 | 检查 Gateway 是否运行 |
+| 登录过期 | 重新运行 login 命令 |
+| 收不到消息 | 检查 allowFrom 配置 |
+
+## 文件位置
+`templates/channels/whatsapp.json`

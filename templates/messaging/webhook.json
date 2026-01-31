@@ -1,0 +1,55 @@
+# Webhook 配置模板
+
+```json
+{
+  "name": "webhook",
+  "description": "通用 Webhook 配置模板",
+  "version": "1.0.0",
+  "channel": "webhook",
+  "config": {
+    "inbound_url": "/webhook/incoming",
+    "outbound_urls": [],
+    "secret": "${WEBHOOK_SECRET}",
+    "verify_signature": true,
+    "methods": ["POST", "GET"]
+  },
+  "features": [
+    "接收外部事件",
+    "发送通知",
+    "签名验证",
+    "重试机制"
+  ],
+  "setupSteps": [
+    "1. 配置 inbound URL",
+    "2. 设置签名密钥（可选）",
+    "3. 配置 outbound webhooks",
+    "4. 测试连接"
+  ],
+  "examplePayload": {
+    "event": "message",
+    "timestamp": "2026-01-30T12:00:00Z",
+    "data": {
+      "content": "消息内容",
+      "sender": "user_id"
+    }
+  }
+}
+```
+
+## 签名验证
+
+```python
+import hmac
+import hashlib
+
+def verify_signature(payload, signature, secret):
+    expected = hmac.new(
+        secret.encode(),
+        payload.encode(),
+        hashlib.sha256
+    ).hexdigest()
+    return hmac.compare_digest(signature, f"sha256={expected}")
+```
+
+## 文件位置
+`templates/messaging/webhook.json`

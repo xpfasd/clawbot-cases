@@ -1,0 +1,77 @@
+# Slack 配置模板
+
+## 基础配置
+
+```json
+{
+  "name": "slack",
+  "description": "Slack 工作区应用配置模板",
+  "version": "1.0.0",
+  "channel": "slack",
+  "config": {
+    "enabled": true,
+    "botToken": "xoxb-YOUR-BOT-TOKEN",
+    "signingSecret": "YOUR_SIGNING_SECRET",
+    "appToken": "xapp-YOUR-APP-TOKEN",
+    "dmPolicy": "pairing",
+    "groupPolicy": "allowlist"
+  },
+  "features": [
+    "私聊对话",
+    "频道消息",
+    "消息回复",
+    "交互式组件"
+  ],
+  "setupSteps": [
+    "1. 访问 https://api.slack.com/apps",
+    "2. 创建新应用",
+    "3. 配置 Bot Token Scopes",
+    "4. 安装应用到工作区",
+    "5. 复制 Bot Token",
+    "6. 配置到 OpenClaw"
+  ],
+  "requiredScopes": [
+    "chat:write",
+    "chat:write.public",
+    "im:read",
+    "im:write",
+    "im:history",
+    "users:read"
+  ]
+}
+```
+
+## 高级配置
+
+```json
+{
+  "config": {
+    "enabled": true,
+    "botToken": "xoxb-xxx",
+    "signingSecret": "xxx",
+    "dmPolicy": "pairing",
+    "groupPolicy": "allowlist",
+    "dm": {
+      "allowFrom": []
+    },
+    "group": {
+      "allowFrom": []
+    },
+    "mentionPattern": "@ClawBot"
+  }
+}
+```
+
+## 权限 Scopes
+
+| Scope | 说明 |
+|-------|------|
+| `chat:write` | 发送消息 |
+| `chat:write.public` | 公开频道发送 |
+| `im:read` | 读取私聊 |
+| `im:write` | 发送私聊 |
+| `im:history` | 私聊历史 |
+| `users:read` | 读取用户信息 |
+
+## 文件位置
+`templates/channels/slack.json`

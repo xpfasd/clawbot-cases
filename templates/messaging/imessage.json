@@ -1,0 +1,52 @@
+# iMessage (BlueBubbles) 配置模板
+
+```json
+{
+  "name": "imessage-bluebubbles",
+  "description": "iMessage via BlueBubbles 配置模板",
+  "version": "1.0.0",
+  "channel": "bluebubbles",
+  "config": {
+    "enabled": true,
+    "url": "http://localhost:1234",
+    "password": "${BLUEBUBBLES_PASSWORD}",
+    "api_version": "v1"
+  },
+  "features": [
+    "发送/接收 iMessage",
+    "群聊支持",
+    "图片/文件传输",
+    "表情回复"
+  ],
+  "setupSteps": [
+    "1. 下载并安装 BlueBubbles macOS 应用",
+    "2. 配置 API 访问密码",
+    "3. 设置Webhook回调（可选）",
+    "4. 测试连接"
+  ],
+  "apiEndpoints": {
+    "send_text": "/api/v1/message/text",
+    "send_attachment": "/api/v1/message/attachment",
+    "get_messages": "/api/v1/message/recent",
+    "get_chats": "/api/v1/chat"
+  },
+  "notes": [
+    "需要 macOS 设备运行 BlueBubbles",
+    "需要 iMessage 登录",
+    "不支持 Windows/Linux"
+  ]
+}
+```
+
+## 使用示例
+
+```bash
+# 发送消息
+curl -X POST "http://localhost:1234/api/v1/message/text" \
+  -H "Content-Type: application/json" \
+  -H "password: your_password" \
+  -d '{"recipient": "+1234567890", "message": "Hello"}'
+```
+
+## 文件位置
+`templates/messaging/imessage.json`

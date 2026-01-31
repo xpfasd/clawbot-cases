@@ -1,0 +1,60 @@
+# Google Search API 配置模板
+
+## 基础配置
+
+```json
+{
+  "name": "google-search",
+  "description": "Google Custom Search API 配置模板",
+  "version": "1.0.0",
+  "api": "customsearch",
+  "config": {
+    "apiKey": "${GOOGLE_SEARCH_API_KEY}",
+    "searchEngineId": "${GOOGLE_SEARCH_CX}",
+    "options": {
+      "num": 10,
+      "start": 0,
+      "lr": "lang_zh-CN",
+      "sort": "",
+      "safe": "active",
+      "searchType": "",
+      "fileType": "",
+      "rights": ""
+    }
+  },
+  "features": [
+    "Web 搜索",
+    "图片搜索",
+    "新闻搜索",
+    "视频搜索"
+  ],
+  "setup": {
+    "getApiKey": "https://developers.google.com/custom-search/v1/overview",
+    "createCx": "https://programmablesearchengine.google.com/",
+    "quota": "100 次/天（免费版）"
+  },
+  "usage": {
+    "web": {
+      "searchType": "",
+      "description": "普通 Web 搜索"
+    },
+    "image": {
+      "searchType": "image",
+      "description": "图片搜索"
+    },
+    "news": {
+      "searchType": "news",
+      "description": "新闻搜索"
+    }
+  }
+}
+```
+
+## 使用示例
+
+```bash
+curl "https://www.googleapis.com/customsearch/v1?key=$GOOGLE_SEARCH_API_KEY&cx=$GOOGLE_SEARCH_CX&q=OpenClaw"
+```
+
+## 文件位置
+`templates/google-ai/google-search-config.json`

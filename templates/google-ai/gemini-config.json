@@ -1,0 +1,86 @@
+# Gemini API 配置模板
+
+## 基础配置
+
+```json
+{
+  "name": "gemini",
+  "description": "Google Gemini API 配置模板",
+  "version": "1.0.0",
+  "api": "google-generativeai",
+  "config": {
+    "apiKey": "${GEMINI_API_KEY}",
+    "model": "gemini-pro",
+    "models": {
+      "text": "gemini-pro",
+      "vision": "gemini-pro-vision",
+      "1.5-pro": "gemini-1.5-pro",
+      "1.5-flash": "gemini-1.5-flash"
+    },
+    "generationConfig": {
+      "temperature": 0.7,
+      "maxOutputTokens": 2048,
+      "topP": 0.95,
+      "topK": 40
+    },
+    "safetySettings": [
+      {
+        "category": "HARM_CATEGORY_HARASSMENT",
+        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+      },
+      {
+        "category": "HARM_CATEGORY_HATE_SPEECH",
+        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+      }
+    ]
+  },
+  "features": [
+    "多模态输入",
+    "长上下文",
+    "函数调用",
+    "代码生成"
+  ],
+  "setup": {
+    "getApiKey": "https://aistudio.google.com/app/apikey",
+    "install": "pip install google-generativeai",
+    "usage": "参考官方文档: https://ai.google.dev/docs"
+  },
+  "examples": {
+    "text": {
+      "prompt": "用 Python 写一个快速排序",
+      "language": "python"
+    },
+    "vision": {
+      "description": "支持图片输入和理解",
+      "input": "image/jpeg"
+    }
+  },
+  "pricing": {
+    "gemini-1.5-pro": {
+      "input": "0.00125/1K tokens",
+      "output": "0.005/1K tokens"
+    },
+    "gemini-1.5-flash": {
+      "input": "0.000075/1K tokens",
+      "output": "0.0003/1K tokens"
+    }
+  }
+}
+```
+
+## 使用示例
+
+```python
+import google.generativeai as genai
+import os
+
+genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+
+model = genai.GenerativeModel("gemini-1.5-pro")
+
+response = model.generate_content("用 Python 写一个 HTTP 服务器")
+print(response.text)
+```
+
+## 文件位置
+`templates/google-ai/gemini-config.json`

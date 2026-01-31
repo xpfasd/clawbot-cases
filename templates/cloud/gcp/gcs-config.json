@@ -1,0 +1,45 @@
+# GCP Cloud Storage 配置模板
+
+```json
+{
+  "name": "gcp-gcs",
+  "description": "Google Cloud Storage 配置模板",
+  "version": "1.0.0",
+  "service": "gcp-gcs",
+  "config": {
+    "project_id": "my-project",
+    "bucket": "my-bucket",
+    "location": "US",
+    "storage_class": "STANDARD",
+    "uniform_bucket_level_access": true,
+    "cors": [
+      {
+        "origin": ["https://example.com"],
+        "method": ["GET", "POST"],
+        "responseHeader": ["Content-Type"],
+        "maxAgeSeconds": 3600
+      }
+    ],
+    "lifecycle": {
+      "rule": [
+        {
+          "action": {"type": "SetStorageClass", "storageClass": "NEARLINE"},
+          "condition": {"age": 30}
+        }
+      ]
+    }
+  },
+  "cliCommands": {
+    "list": "gsutil ls",
+    "upload": "gsutil cp file.txt gs://bucket/",
+    "download": "gsutil cp gs://bucket/file.txt ./",
+    "set_acl": "gsutil acl ch -u user:READ gs://bucket/file"
+  },
+  "envVars": {
+    "GOOGLE_APPLICATION_CREDENTIALS": "/path/to/service-account.json"
+  }
+}
+```
+
+## 文件位置
+`templates/cloud/gcp/gcs-config.json`

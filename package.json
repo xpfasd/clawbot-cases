@@ -1,0 +1,8 @@
+{
+  "name": "clawbot-cases",
+  "version": "1.0.0",
+  "description": "ClawBot 案例库和模板市场",
+  "scripts": {
+    "dev": "echo '开发中..."
+  }
+}

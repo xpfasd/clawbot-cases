@@ -1,0 +1,34 @@
+{
+  "name": "weather-skill",
+  "description": "天气查询技能模板",
+  "version": "1.0.0",
+  "skill": {
+    "name": "weather",
+    "description": "获取当前天气和预报",
+    "source": "openclaw-bundled",
+    "features": [
+      "实时天气",
+      "未来预报",
+      "无需 API Key"
+    ],
+    "usage": {
+      "examples": [
+        "今天天气怎么样？",
+        "北京明天天气",
+        "未来一周天气"
+      ],
+      "params": {
+        "city": "城市名称",
+        "days": "预报天数 (1-7)"
+      }
+    },
+    "setup": {
+      "required": [],
+      "optional": []
+    }
+  },
+  "example": {
+    "input": "上海天气",
+    "output": "🌤️ 上海今日天气\n温度: 18°C\n天气: 多云\n风力: 2级"
+  }
+}

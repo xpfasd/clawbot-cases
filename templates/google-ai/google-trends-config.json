@@ -1,0 +1,68 @@
+# Google Trends 配置模板
+
+## 基础配置
+
+```json
+{
+  "name": "google-trends",
+  "description": "Google Trends 数据获取配置模板",
+  "version": "1.0.0",
+  "api": "pytrends",
+  "config": {
+    "language": "zh-CN",
+    "timezone": 360,
+    "geo": "",
+    "timeframe": "today 3-m"
+  },
+  "features": [
+    "关键词趋势",
+    "地区分布",
+    "相关查询",
+    "实时趋势"
+  ],
+  "setup": {
+    "install": "pip install pytrends pandas matplotlib plotly",
+    "usage": "使用 pytrends 库获取数据"
+  },
+  "parameters": {
+    "geo": {
+      "global": "",
+      "china": "CN",
+      "usa": "US",
+      "japan": "JP"
+    },
+    "timeframe": {
+      "now_1h": "now 1-H",
+      "today": "today 1-d",
+      "past_7d": "today 7-d",
+      "past_30d": "today 30-d",
+      "past_3m": "today 3-m",
+      "past_12m": "today 12-m",
+      "past_5y": "today 5-y"
+    }
+  }
+}
+```
+
+## 使用示例
+
+```python
+from pytrends.request import TrendReq
+
+pytrends = TrendReq(hl='zh-CN', tz=360)
+
+# 构建负载
+pytrends.build_payload(
+    kw_list=['ChatGPT', 'OpenAI', 'AI助手'],
+    timeframe='today 3-m',
+    geo='CN'
+)
+
+# 获取趋势数据
+interest_over_time = pytrends.interest_over_time()
+interest_by_region = pytrends.interest_by_region()
+related_queries = pytrends.related_queries()
+```
+
+## 文件位置
+`templates/google-ai/google-trends-config.json`
