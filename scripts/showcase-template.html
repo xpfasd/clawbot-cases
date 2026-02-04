@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ClawBot Cases & Templates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --bg-deep: #070a12;
+      --panel: rgba(16, 21, 38, 0.78);
+      --panel-strong: rgba(18, 26, 46, 0.92);
+      --border: rgba(120, 140, 190, 0.25);
+      --text: #e6f1ff;
+      --muted: #a0b0cc;
+      --accent: #5efff0;
+      --accent-2: #ff5cda;
+      --accent-3: #8eff6a;
+      --warning: #ffd166;
+      --shadow: 0 24px 60px rgba(7, 10, 18, 0.65);
+      --glow: 0 0 25px rgba(94, 255, 240, 0.25);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --grid-gap: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      background: radial-gradient(circle at top left, rgba(94, 255, 240, 0.15), transparent 40%),
+        radial-gradient(circle at 15% 60%, rgba(255, 92, 218, 0.18), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(142, 255, 106, 0.12), transparent 35%),
+        linear-gradient(140deg, var(--bg-deep), var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      position: relative;
+      padding-bottom: 120px;
+    }
+
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.2;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      z-index: 0;
+    }
+
+    .hero {
+      position: relative;
+      padding: 40px 6vw 80px;
+      z-index: 1;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 60px;
+    }
+
+    .brand {
+      font-family: "Orbitron", sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(2.6rem, 4vw, 4.2rem);
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      background: linear-gradient(120deg, rgba(94, 255, 240, 0.2), rgba(255, 92, 218, 0.2));
+      border: 1px solid rgba(94, 255, 240, 0.4);
+      box-shadow: var(--glow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(94, 255, 240, 0.35);
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      box-shadow: none;
+    }
+
+    .hero-panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-panel h3 {
+      font-family: "Orbitron", sans-serif;
+      margin-bottom: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      color: var(--accent-3);
+    }
+
+    .hero-panel ul {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .hero-panel li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .hero-panel li span {
+      color: var(--accent);
+    }
+
+    .main {
+      position: relative;
+      z-index: 1;
+      padding: 0 6vw;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .stat-card {
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .stat-number {
+      font-family: "Orbitron", sans-serif;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .search-panel {
+      display: grid;
+      gap: 16px;
+      background: var(--panel-strong);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 50px;
+      backdrop-filter: blur(16px);
+    }
+
+    .search-input {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(10, 14, 26, 0.8);
+      border: 1px solid rgba(94, 255, 240, 0.2);
+      color: var(--text);
+    }
+
+    .search-input input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-chip {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .filter-chip.active,
+    .filter-chip:hover {
+      color: var(--text);
+      border-color: rgba(94, 255, 240, 0.6);
+      box-shadow: var(--glow);
+    }
+
+    .section {
+      margin-bottom: 70px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-family: "Orbitron", sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .category-block {
+      margin-bottom: 36px;
+    }
+
+    .category-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      font-family: "Orbitron", sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-3);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--grid-gap);
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      backdrop-filter: blur(14px);
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(140deg, rgba(94, 255, 240, 0.08), transparent 40%, rgba(255, 92, 218, 0.1));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(94, 255, 240, 0.6);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(94, 255, 240, 0.18);
+      color: var(--accent);
+      border: 1px solid rgba(94, 255, 240, 0.4);
+      white-space: nowrap;
+    }
+
+    .card-preview {
+      color: var(--muted);
+      font-size: 0.93rem;
+      flex: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .card-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .empty-state {
+      padding: 30px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-md);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 30px 6vw 60px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 6, 12, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 10;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-panel {
+      width: min(920px, 100%);
+      max-height: 80vh;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--panel-strong);
+      border: 1px solid rgba(94, 255, 240, 0.4);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid rgba(94, 255, 240, 0.2);
+      background: rgba(12, 16, 30, 0.9);
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .modal-body {
+      padding: 22px;
+      overflow-y: auto;
+      color: var(--text);
+    }
+
+    .modal-body h1,
+    .modal-body h2,
+    .modal-body h3,
+    .modal-body h4 {
+      margin: 18px 0 10px;
+      font-family: "Orbitron", sans-serif;
+    }
+
+    .modal-body p {
+      margin-bottom: 12px;
+      color: var(--muted);
+    }
+
+    .modal-body pre {
+      background: #05070f;
+      padding: 14px;
+      border-radius: 12px;
+      overflow-x: auto;
+      border: 1px solid rgba(94, 255, 240, 0.2);
+      color: #c6f1ff;
+      margin-bottom: 16px;
+    }
+
+    .modal-body code {
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: 0.9rem;
+    }
+
+    .modal-body ul,
+    .modal-body ol {
+      margin: 10px 0 12px 20px;
+      color: var(--muted);
+    }
+
+    .modal-close {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .pulse {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(94, 255, 240, 0.28), transparent 65%);
+      filter: blur(2px);
+      animation: float 6s ease-in-out infinite;
+      opacity: 0.6;
+    }
+
+    .pulse.one {
+      top: 20%;
+      right: 8%;
+      animation-delay: -2s;
+    }
+
+    .pulse.two {
+      bottom: 10%;
+      left: 5%;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        padding: 30px 5vw 60px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-panel {
+        max-height: 85vh;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-overlay"></div>
+  <div class="page">
+    <div class="pulse one"></div>
+    <div class="pulse two"></div>
+
+    <header class="hero" id="top">
+      <nav class="nav">
+        <div class="brand">ClawBot Arsenal</div>
+        <div class="nav-links">
+          <a href="#cases">Cases</a>
+          <a href="#templates">Templates</a>
+          <a href="#stats">Stats</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <div>
+          <h1 class="hero-title">ClawBot <span>Cases</span> &amp; Templates</h1>
+          <p class="hero-copy">A premium showcase of real-world ClawBot automations, integrations, and ready-to-run templates. Explore battle-tested workflows, copy the best patterns, and ship faster with a curated library built for power users.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#cases">Explore Cases</a>
+            <a class="btn secondary" href="#templates">Browse Templates</a>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <h3>What is ClawBot Cases?</h3>
+          <ul>
+            <li><span>■</span> Real integrations across AI, cloud, security, and ops.</li>
+            <li><span>■</span> Structured templates to bootstrap new automations.</li>
+            <li><span>■</span> Searchable knowledge base for your automation studio.</li>
+            <li><span>■</span> Built from markdown and JSON, always source-controlled.</li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="stats" id="stats">
+        <div class="stat-card">
+          <div class="stat-number" id="case-count">0</div>
+          <div class="stat-label">Total Cases</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="template-count">0</div>
+          <div class="stat-label">Total Templates</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="category-count">0</div>
+          <div class="stat-label">Categories</div>
+        </div>
+      </section>
+
+      <section class="search-panel">
+        <div class="search-input">
+          <span>🔍</span>
+          <input id="searchInput" type="search" placeholder="Search cases, templates, or keywords..." />
+        </div>
+        <div class="filters" id="typeFilters"></div>
+        <div class="filters" id="categoryFilters"></div>
+      </section>
+
+      <section class="section" id="cases">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Cases Gallery</div>
+            <div class="section-subtitle">Markdown-powered scenarios grouped by category.</div>
+          </div>
+          <div class="section-subtitle" id="case-summary"></div>
+        </div>
+        <div id="casesContainer"></div>
+      </section>
+
+      <section class="section" id="templates">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Templates Gallery</div>
+            <div class="section-subtitle">Ready-made JSON configurations for fast starts.</div>
+          </div>
+          <div class="section-subtitle" id="template-summary"></div>
+        </div>
+        <div id="templatesContainer"></div>
+      </section>
+    </main>
+
+    <footer>
+      Built for ClawBot builders. Crafted with neon precision.
+    </footer>
+  </div>
+
+  <div class="modal" id="detailModal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle"></div>
+        <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script id="clawbot-data" type="application/json">__DATA_JSON__</script>
+  <script>
+    const data = JSON.parse(document.getElementById("clawbot-data").textContent);
+
+    const state = {
+      type: "all",
+      category: "all",
+      query: "",
+    };
+
+    const typeLabels = {
+      all: "All",
+      cases: "Cases",
+      templates: "Templates",
+    };
+
+    const typeFilters = document.getElementById("typeFilters");
+    const categoryFilters = document.getElementById("categoryFilters");
+    const searchInput = document.getElementById("searchInput");
+
+    const counts = {
+      cases: data.cases.length,
+      templates: data.templates.length,
+    };
+
+    const unique = (items) => Array.from(new Set(items)).sort();
+
+    const categories = {
+      cases: unique(data.cases.map((item) => item.category)),
+      templates: unique(data.templates.map((item) => item.category)),
+    };
+
+    function animateValue(el, end) {
+      const duration = 800;
+      const start = 0;
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        el.textContent = Math.floor(progress * (end - start) + start);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    function buildFilters() {
+      typeFilters.innerHTML = "";
+      Object.keys(typeLabels).forEach((type) => {
+        const chip = document.createElement("button");
+        chip.className = "filter-chip" + (state.type === type ? " active" : "");
+        chip.textContent = typeLabels[type];
+        chip.type = "button";
+        chip.addEventListener("click", () => {
+          state.type = type;
+          state.category = "all";
+          buildFilters();
+          renderAll();
+        });
+        typeFilters.appendChild(chip);
+      });
+
+      const categoryList = state.type === "cases"
+        ? categories.cases
+        : state.type === "templates"
+          ? categories.templates
+          : unique([...categories.cases, ...categories.templates]);
+
+      categoryFilters.innerHTML = "";
+      const allChip = document.createElement("button");
+      allChip.className = "filter-chip" + (state.category === "all" ? " active" : "");
+      allChip.textContent = "All categories";
+      allChip.type = "button";
+      allChip.addEventListener("click", () => {
+        state.category = "all";
+        buildFilters();
+        renderAll();
+      });
+      categoryFilters.appendChild(allChip);
+
+      categoryList.forEach((category) => {
+        const chip = document.createElement("button");
+        chip.className = "filter-chip" + (state.category === category ? " active" : "");
+        chip.textContent = category;
+        chip.type = "button";
+        chip.addEventListener("click", () => {
+          state.category = category;
+          buildFilters();
+          renderAll();
+        });
+        categoryFilters.appendChild(chip);
+      });
+    }
+
+    function matchesQuery(item) {
+      if (!state.query) return true;
+      const haystack = `${item.title} ${item.category} ${item.preview} ${item.content}`.toLowerCase();
+      return haystack.includes(state.query);
+    }
+
+    function matchesCategory(item) {
+      if (state.category === "all") return true;
+      return item.category === state.category;
+    }
+
+    function matchesType(itemType) {
+      return state.type === "all" || state.type === itemType;
+    }
+
+    function filterItems(items, type) {
+      if (!matchesType(type)) return [];
+      return items.filter((item) => matchesQuery(item) && matchesCategory(item));
+    }
+
+    function createCard(item, type) {
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const header = document.createElement("div");
+      header.className = "card-header";
+
+      const title = document.createElement("div");
+      title.className = "card-title";
+      title.textContent = item.title;
+
+      const badge = document.createElement("span");
+      badge.className = "badge";
+      badge.textContent = type;
+
+      header.appendChild(title);
+      header.appendChild(badge);
+
+      const preview = document.createElement("div");
+      preview.className = "card-preview";
+      preview.textContent = item.preview;
+
+      const meta = document.createElement("div");
+      meta.className = "card-meta";
+
+      const category = document.createElement("span");
+      category.textContent = `Category: ${item.category}`;
+
+      const open = document.createElement("span");
+      open.textContent = "Open →";
+
+      meta.appendChild(category);
+      meta.appendChild(open);
+
+      card.appendChild(header);
+      card.appendChild(preview);
+      card.appendChild(meta);
+
+      card.addEventListener("click", () => openModal(item, type));
+      return card;
+    }
+
+    function renderCases() {
+      const container = document.getElementById("casesContainer");
+      const filtered = filterItems(data.cases, "cases");
+      document.getElementById("case-summary").textContent = `${filtered.length} cases shown`;
+
+      if (!filtered.length) {
+        container.innerHTML = `<div class="empty-state">No cases match your filters.</div>`;
+        return;
+      }
+
+      const byCategory = filtered.reduce((acc, item) => {
+        acc[item.category] = acc[item.category] || [];
+        acc[item.category].push(item);
+        return acc;
+      }, {});
+
+      container.innerHTML = "";
+      Object.keys(byCategory).sort().forEach((category) => {
+        const block = document.createElement("div");
+        block.className = "category-block";
+        block.innerHTML = `
+          <div class="category-heading">${category}</div>
+          <div class="card-grid"></div>
+        `;
+        const grid = block.querySelector(".card-grid");
+        byCategory[category].forEach((item) => grid.appendChild(createCard(item, "case")));
+        container.appendChild(block);
+      });
+    }
+
+    function renderTemplates() {
+      const container = document.getElementById("templatesContainer");
+      const filtered = filterItems(data.templates, "templates");
+      document.getElementById("template-summary").textContent = `${filtered.length} templates shown`;
+
+      if (!filtered.length) {
+        container.innerHTML = `<div class="empty-state">No templates match your filters.</div>`;
+        return;
+      }
+
+      const byCategory = filtered.reduce((acc, item) => {
+        acc[item.category] = acc[item.category] || [];
+        acc[item.category].push(item);
+        return acc;
+      }, {});
+
+      container.innerHTML = "";
+      Object.keys(byCategory).sort().forEach((category) => {
+        const block = document.createElement("div");
+        block.className = "category-block";
+        block.innerHTML = `
+          <div class="category-heading">${category}</div>
+          <div class="card-grid"></div>
+        `;
+        const grid = block.querySelector(".card-grid");
+        byCategory[category].forEach((item) => grid.appendChild(createCard(item, "template")));
+        container.appendChild(block);
+      });
+    }
+
+    function renderAll() {
+      renderCases();
+      renderTemplates();
+    }
+
+    const modal = document.getElementById("detailModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
+    const modalClose = document.getElementById("modalClose");
+
+    function openModal(item, type) {
+      modalTitle.textContent = `${item.title} (${type})`;
+      if (type === "template") {
+        modalBody.innerHTML = `<pre><code>${item.content}</code></pre>`;
+      } else {
+        modalBody.innerHTML = item.content;
+      }
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeModal() {
+      modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    modalClose.addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeModal();
+    });
+
+    searchInput.addEventListener("input", (event) => {
+      state.query = event.target.value.trim().toLowerCase();
+      renderAll();
+    });
+
+    buildFilters();
+    renderAll();
+
+    animateValue(document.getElementById("case-count"), counts.cases);
+    animateValue(document.getElementById("template-count"), counts.templates);
+    animateValue(document.getElementById("category-count"), unique([...categories.cases, ...categories.templates]).length);
+  </script>
+</body>
+</html>
