@@ -1,0 +1,9 @@
+{
+  "name": "random-channel",
+  "description": "自动生成的通道配置模板",
+  "version": "1.0.0",
+  "config": {
+    "enabled": true,
+    "apiKey": "${API_KEY}"
+  }
+}
