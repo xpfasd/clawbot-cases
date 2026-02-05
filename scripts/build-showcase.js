@@ -157,6 +157,50 @@ function toPreview(text, maxLength = 160) {
   return text.slice(0, maxLength - 1).trimEnd() + "…";
 }
 
+function extractSection(markdown, heading) {
+  const pattern = new RegExp(`^##\\s*${heading}\\s*\\n([\\s\\S]*?)(?=\\n##\\s|\\n#\\s|$)`, "m");
+  const match = markdown.match(pattern);
+  return match ? match[1].trim() : "";
+}
+
+function extractCaseSummary(markdown) {
+  const headings = ["场景", "Scenario", "Overview", "简介", "Summary", "Purpose"];
+  for (const heading of headings) {
+    const section = extractSection(markdown, heading);
+    if (section) {
+      const cleaned = stripMarkdown(section);
+      if (cleaned) return cleaned;
+    }
+  }
+
+  const paragraphs = markdown.split(/\n\s*\n/);
+  for (const paragraph of paragraphs) {
+    const cleaned = stripMarkdown(paragraph);
+    if (cleaned) return cleaned;
+  }
+
+  return "";
+}
+
+function extractTemplateSummary(parsed, title) {
+  if (parsed && typeof parsed.description === "string" && parsed.description.trim()) {
+    return parsed.description.trim();
+  }
+  if (parsed && typeof parsed.summary === "string" && parsed.summary.trim()) {
+    return parsed.summary.trim();
+  }
+  if (parsed && typeof parsed.title === "string" && parsed.title.trim()) {
+    return parsed.title.trim();
+  }
+  if (parsed && typeof parsed.name === "string" && parsed.name.trim()) {
+    return parsed.name.trim();
+  }
+  if (title) {
+    return `Configuration template for ${title}.`;
+  }
+  return "";
+}
+
 function getTitle(markdown, fallback) {
   const match = markdown.match(/^#\s+(.+)$/m);
   if (match) return match[1].trim();
@@ -193,7 +237,8 @@ function collectCases() {
       const markdown = readText(fullPath);
       const title = getTitle(markdown, path.basename(file, ".md"));
       const html = markdownToHtml(markdown);
-      const preview = toPreview(stripMarkdown(markdown));
+      const summary = extractCaseSummary(markdown);
+      const preview = toPreview(summary || stripMarkdown(markdown), 180);
       cases.push({
         id: `case-${slugify(category)}-${slugify(file)}`,
         title,
@@ -232,8 +277,9 @@ function collectTemplates() {
       }
 
       const title = parsed && (parsed.name || parsed.title) ? (parsed.name || parsed.title) : path.basename(file, ".json");
-      const previewSource = content.replace(/\s+/g, " ");
-      const preview = toPreview(previewSource, 140);
+      const summary = extractTemplateSummary(parsed, title);
+      const previewSource = summary || content.replace(/\s+/g, " ");
+      const preview = toPreview(previewSource, 180);
 
       templates.push({
         id: `template-${slugify(category)}-${slugify(file)}`,
